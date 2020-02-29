@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 28 fév. 2020 à 14:07
+-- Généré le :  sam. 29 fév. 2020 à 12:14
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.2.18
 
@@ -97,12 +97,19 @@ DROP TABLE IF EXISTS `utilisateurs`;
 CREATE TABLE IF NOT EXISTS `utilisateurs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `prenom` varchar(255) NOT NULL,
-  `nom` varchar(255) NOT NULL,
+  `mdp` varchar(255) NOT NULL,
+  `mail` varchar(255) NOT NULL,
+  `role` varchar(255) NOT NULL DEFAULT 'membre',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `utilisateurs`
+--
+
+INSERT INTO `utilisateurs` (`id`, `login`, `mdp`, `mail`, `role`) VALUES
+(12, 'azerty', '$2y$12$jducomslBLdcq7Il7k.i.Of1KtaJGE.Wg9Z4bZCqxPnqnlGQhgy7m', 'azerty@sfr.fr', 'membre'),
+(11, 'admin', '$2y$12$b/hXugDqjafmFdpm1B3DP.iA4bC2lA5yb3QheUUOIr5RgbjEj0XyW', 'admin@laplateforme.io', 'admin');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
