@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  sam. 29 fév. 2020 à 12:14
+-- Généré le :  lun. 02 mars 2020 à 14:18
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.2.18
 
@@ -56,19 +56,63 @@ DROP TABLE IF EXISTS `equipements`;
 CREATE TABLE IF NOT EXISTS `equipements` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) NOT NULL,
-  `prix` int(11) NOT NULL,
+  `nb_emplacements` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `equipements`
 --
 
-INSERT INTO `equipements` (`id`, `nom`, `prix`) VALUES
-(1, 'Accès à la borne électrique', 2),
-(2, 'Accès au Disco-Club “Les girelles dansantes”', 17),
-(3, 'Accès aux\r\nactivités Yoga, Frisbee et Ski Nautique', 30),
-(4, 'Emplacement', 10);
+INSERT INTO `equipements` (`id`, `nom`, `nb_emplacements`) VALUES
+(1, 'Tente', 1),
+(2, 'Camping-car', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `options`
+--
+
+DROP TABLE IF EXISTS `options`;
+CREATE TABLE IF NOT EXISTS `options` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `options`
+--
+
+INSERT INTO `options` (`id`, `nom`) VALUES
+(1, 'Borne'),
+(2, 'Club'),
+(3, 'Activites');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `prix`
+--
+
+DROP TABLE IF EXISTS `prix`;
+CREATE TABLE IF NOT EXISTS `prix` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(255) NOT NULL,
+  `prix` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `prix`
+--
+
+INSERT INTO `prix` (`id`, `nom`, `prix`) VALUES
+(1, 'emplacement', 10),
+(2, 'borne', 2),
+(3, 'club', 17),
+(4, 'activites', 30);
 
 -- --------------------------------------------------------
 
@@ -79,13 +123,27 @@ INSERT INTO `equipements` (`id`, `nom`, `prix`) VALUES
 DROP TABLE IF EXISTS `reservations`;
 CREATE TABLE IF NOT EXISTS `reservations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `debut` datetime NOT NULL,
-  `fin` datetime NOT NULL,
-  `nb_emplacement` int(11) NOT NULL,
-  `id_emplacement` int(11) NOT NULL,
+  `debut` date NOT NULL,
+  `fin` date NOT NULL,
+  `nb_jours` int(11) NOT NULL,
   `id_utilisateur` int(11) NOT NULL,
+  `id_emplacement` int(11) NOT NULL,
+  `nb_emplacement` int(11) NOT NULL,
+  `id_borne` int(11) NOT NULL,
+  `id_club` int(11) NOT NULL,
+  `id_activites` int(11) NOT NULL,
+  `prix` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `reservations`
+--
+
+INSERT INTO `reservations` (`id`, `debut`, `fin`, `nb_jours`, `id_utilisateur`, `id_emplacement`, `nb_emplacement`, `id_borne`, `id_club`, `id_activites`, `prix`) VALUES
+(24, '2020-03-04', '2020-03-05', 1, 12, 3, 1, 1, 0, 0, 12),
+(20, '2020-03-03', '2020-03-04', 1, 12, 1, 1, 0, 1, 0, 27),
+(21, '2020-03-13', '2020-03-15', 2, 12, 2, 1, 0, 0, 1, 80);
 
 -- --------------------------------------------------------
 

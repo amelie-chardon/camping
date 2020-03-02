@@ -32,8 +32,7 @@ if($_SESSION['user']->isConnected() != true){
 <main>
 <section>
     <h1> Mon profil </h1>
-  
-            <form action="profil.php" method="post">
+            <form action="profil.php" class="formulaire" method="post">
                 <label>Login</label>
                 <input type="text" name="login" required><br>
                 <label>Mail</label>
