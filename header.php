@@ -23,30 +23,14 @@ if (isset($_SESSION['login']))
             <?php
         }
         ?>
+        <li><a href="deconnexion.php">Déconnexion</a></li>
     </ul>
  </nav>
-    <form  action="index.php" method="post">
-	    <input name="deconnexion" value="Se déconnecter" type="submit" />
-    </form>
-				
-		<?php
-		if (isset($_POST["deconnexion"]))
-            {
-         session_unset();
-         session_destroy();
-         header ('location:index.php');
-            }
-		?>
-
- 
 <?php 
-
 }
 else
  {
 ?>
-
-
 <nav>
     <ul>
             <li><a href="index.php"> Accueil</a></li>
