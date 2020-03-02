@@ -51,7 +51,7 @@ class reservation extends user{
         $id_equipement=$this->equipement;
         $nb_emplacements=$this->execute("SELECT nb_emplacements FROM EQUIPEMENTS WHERE id=\"$id_equipement\"");
         $this->close();
-        $this->nb_emplacements=intval($nb_emplacements[0]);
+        $this->nb_emplacements=intval($nb_emplacements[0][0]);
     }
 
     public function setPrix()
@@ -70,7 +70,7 @@ class reservation extends user{
 
         //Calcul du prix journalier
         $prix_jour=($this->nb_emplacements)*$prix_emplacement+$this->borne*$prix_borne+$this->club*$prix_club+$this->activites*$prix_activites;
-        
+
         //Calcul du prix pour la réservation
         $this->prix=$prix_jour*$this->nb_jours;
         return $this->prix;
@@ -78,16 +78,28 @@ class reservation extends user{
 
     //Fonctions pour l'affichage
 
-    public function getDateArrivee()
+    public function getDateArrivee($var=null)
     {
-        return $this->date_arrivee;
-        //return date("d/m/Y",strtotime($this->date_arrivee));
+        if($var="str")
+        {
+            return date("d/m/Y",strtotime($this->date_arrivee));
+        }
+        else
+        {
+            return $this->date_arrivee;
+        }
     }
 
     public function getDateDepart()
     {
-        return $this->date_depart;
-        //return date("d/m/Y",strtotime($this->date_depart));
+        if($var="str")
+        {
+            return date("d/m/Y",strtotime($this->date_depart));
+        }
+        else
+        {
+            return $this->date_depart;
+        }
     }
 
     public function getNbJours()
@@ -129,26 +141,41 @@ class reservation extends user{
         }
     }
 
-    public function getBorne()
+    public function getBorne($var=null)
     {
-        return $this->borne;
+        if($var=="str")
+        {
+            if($this->borne==1) return "<p>Accès à la borne électrique</p>";
+        }
+        else
+        {
+            return $this->borne;
+        }
     }
 
-    public function getClub()
+
+    public function getClub($var=null)
     {
-        return $this->club;
+        if($var=="str")
+        {
+            if($this->club==1) return "<p>Accès au Disco-Club 'Les girelles dansantes'</p>";
+        }
+        else
+        {
+            return $this->club;
+        }
     }
 
-    public function getActivites()
-    {
-        return $this->activites;
-    }
 
-    public function getOptions()
+    public function getActivites($var=null)
     {
-        if($this->borne==1) return "<p>Accès à la borne électrique</p>";
-        if($this->club==1) return "<p>Accès au Disco-Club 'Les girelles dansantes'</p>";
-        if($this->activites==1) return "<p>Accès aux activités Yoga, Frisbee et Ski Nautique</p>";
+        if($var="str")
+        {
+            if($this->activites==1) return "<p>Accès aux activités Yoga, Frisbee et Ski Nautique</p>";
+        }
+        {
+            return $this->activites;
+        }
     }
 
     public function getPrix()

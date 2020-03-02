@@ -13,7 +13,7 @@ if (isset($_SESSION['login']))
 <nav>
     <ul>
         <li><a href="index.php">Accueil</a></li>
-        <li><a href="profil.php">Mon profil</a></li>
+        <li><a href="profil.php">Mon compte</a></li>
         <li><a href="reservation-form.php">Réserver</a></li>
         
         <?php 

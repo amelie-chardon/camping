@@ -134,6 +134,8 @@ elseif($_GET["etape"]==2)
 {
     $date_arrivee=$_SESSION["reservation"]->getDateArrivee();
     $date_depart=$_SESSION["reservation"]->getDateDepart();
+    $nb_emplacements=$_SESSION["reservation"]->setNbEmplacements();
+
     $_SESSION["reservation"]->setEquipement($_GET["Equipement"]);
     $equipement_str=$_SESSION["reservation"]->getEquipement("str");
 
@@ -149,30 +151,50 @@ elseif($_GET["etape"]==2)
     <p>Date d'arrivée : <?php echo $_SESSION["reservation"]->getDateArrivee();?></p>
     <p>Date de départ : <?php echo $_SESSION["reservation"]->getDateDepart(); ?></p>
     <p>Equipement : <?php echo $equipement_str; ?></p>
-    <p>Vos options : <?php echo $_SESSION["reservation"]->getOptions(); ?></p>
+    <p>Vos options : 
+    <?php 
+     echo $_SESSION["reservation"]->getBorne("str");
+     echo $_SESSION["reservation"]->getClub("str") ;
+     echo $_SESSION["reservation"]->getACtivites("str");
+     ?></p>
 
 
     <?php
-        //On vérifie les emplacements disponibles
+        //On vérifie les emplacements disponibles par lieu
         $_SESSION["reservation"]->connect();
-        $reservations_en_cours=$_SESSION["reservation"]->execute("SELECT * FROM reservations WHERE debut OR fin BETWEEN \"$date_arrivee\" AND \"$date_depart\"");
-        
+        $empl_1=$_SESSION["reservation"]->execute("SELECT SUM(nb_emplacement) FROM reservations WHERE id_emplacement=1 AND (debut OR fin BETWEEN \"$date_arrivee\" AND \"$date_depart\")");
+        $empl_2=$_SESSION["reservation"]->execute("SELECT SUM(nb_emplacement) FROM reservations WHERE id_emplacement=2 AND (debut OR fin BETWEEN \"$date_arrivee\" AND \"$date_depart\")");
+        $empl_3=$_SESSION["reservation"]->execute("SELECT SUM(nb_emplacement) FROM reservations WHERE id_emplacement=3 AND (debut OR fin BETWEEN \"$date_arrivee\" AND \"$date_depart\")");
+
+        //On définit le nombre total d'emplacements disponibles par lieu
+        $total_emplacements=4;
+
+        //On calcule le nombre d'emplacements libres par lieu
+        $empl_libres_1=$total_emplacements-intval($empl_1[0][0]);
+        $empl_libres_2=$total_emplacements-intval($empl_2[0][0]);
+        $empl_libres_3=$total_emplacements-intval($empl_3[0][0]);
+        $empl_libres=array($empl_libres_1,$empl_libres_2,$empl_libres_3);
+
+        //Récupération du nombre d'emplacements de la réservation
+        $nb_emplacements=$_SESSION["reservation"]->getNbEmplacements();
 
         //Récupération des emplacements sur la BDD
         $_SESSION['bdd']->connect();
         $emplacements=$_SESSION['bdd']->execute("SELECT * FROM emplacements");
         $_SESSION['bdd']->close();
+
         ?>
     
         <form class="formulaire" action="reservation-form?etape=3" method="get">
         <label>Votre emplacement</label>
         <select name="Emplacement" required/>
                     <option value="">Emplacement</option>
-                    <?php 
-                    foreach($emplacements as $emplacement)
+                    <?php
+                    //On affiche "disabled" pour les lieux où il n'y a pas assez de place de libre
+                    for($i=0;$i<3;$i++)
                     {
                         ?>
-                        <option value="<?php echo $emplacement[0]; ?>"><?php echo $emplacement[1] ; ?></option>
+                        <option value="<?php echo $emplacements[$i][0]; ?>" <?php if($empl_libres[$i]<$nb_emplacements) echo "disabled"; ?> ><?php echo $emplacements[$i][1] ; ?></option>
                         <?php
                     }
                     ?>
@@ -188,10 +210,14 @@ elseif($_GET["etape"]==3)
 
     $date_arrivee=$_SESSION["reservation"]->getDateArrivee();
     $date_depart=$_SESSION["reservation"]->getDateDepart();
+    $date_arrivee_str=$_SESSION["reservation"]->getDateArrivee("str");
+    $date_depart_str=$_SESSION["reservation"]->getDateDepart("str");
     $equipement=$_SESSION["reservation"]->getEquipement();
     $equipement_str=$_SESSION["reservation"]->getEquipement("str");
-    $options=$_SESSION["reservation"]->getOptions();
     $borne=$_SESSION["reservation"]->getBorne();
+    $borne_str=$_SESSION["reservation"]->getBorne("str");
+    $club_str=$_SESSION["reservation"]->getClub("str") ;
+    $activites_str=$_SESSION["reservation"]->getACtivites("str");
     $club=$_SESSION["reservation"]->getClub();
     $activites=$_SESSION["reservation"]->getActivites();
     $emplacement=$_SESSION["reservation"]->getEmplacement();
@@ -207,10 +233,10 @@ elseif($_GET["etape"]==3)
 
     //Affichage du récapitulatif de la réservation
     ?>
-    <p>Date d'arrivée : <?php echo $date_arrivee ;?></p>
-    <p>Date de départ : <?php echo $date_depart; ?></p>
+    <p>Date d'arrivée : <?php echo $date_arrivee_str ;?></p>
+    <p>Date de départ : <?php echo $date_depart_str; ?></p>
     <p>Equipement : <?php echo $equipement_str; ?></p>
-    <p>Vos options : <?php echo $options; ?></p>
+    <p>Vos options : <?php echo $borne_str ; echo $club_str ; echo $activites_str; ?></p>
     <p>Emplacement : <?php echo $emplacement_str ?></p>
     <p>Prix : <?php echo $prix." €" ; ?></p>
 
