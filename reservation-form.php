@@ -85,8 +85,8 @@ if(!isset($_GET["etape"])){
 elseif($_GET["etape"]==1)
 {
     $_SESSION["reservation"]->setDate($_GET['date_debut'],$_GET['date_fin']);
-    $date_arrivee=$_SESSION["reservation"]->getDateArrivee();
-    $date_depart=$_SESSION["reservation"]->getDateDepart();
+    $date_arrivee=$_SESSION["reservation"]->getDateArrivee("str");
+    $date_depart=$_SESSION["reservation"]->getDateDepart("str");
     ?>
     <p>Date d'arrivée : <?php echo $date_arrivee;?></p>
     <p>Date de départ : <?php echo $date_depart; ?></p>
@@ -95,8 +95,8 @@ elseif($_GET["etape"]==1)
 
         //Récupération des équipements sur la BDD
         $_SESSION['bdd']->connect();
-        $equipements=$_SESSION['bdd']->execute("SELECT * FROM equipements");
-        $options=$_SESSION['bdd']->execute("SELECT * FROM options");
+        $equipements=$_SESSION['bdd']->execute("SELECT * FROM equipements INNER JOIN prix ON prix.nom=equipements.nom");
+        $options=$_SESSION['bdd']->execute("SELECT * FROM options INNER JOIN prix ON prix.nom=options.nom");
         $_SESSION['bdd']->close();
         ?>
     
@@ -108,7 +108,7 @@ elseif($_GET["etape"]==1)
                     foreach($equipements as $equipement)
                     {
                         ?>
-                        <option value="<?php echo $equipement[0]; ?>"><?php echo $equipement[1] ; ?></option>
+                        <option value="<?php echo $equipement[0]; ?>"><?php echo $equipement[1].' ('.$equipement[5].' €/jour)' ?></option>
                         <?php
                     }
                     ?>
@@ -119,7 +119,7 @@ elseif($_GET["etape"]==1)
                     foreach($options as $option)
                     {
                         ?>
-                        <input type="checkbox" value="1" name="<?php echo $option[1]; ?>"><?php echo $option[1]; ?><br/>
+                        <input type="checkbox" value="1" name="<?php echo $option[1]; ?>"><?php echo $option[2]; echo ' ('.$option[5].' €/jour)'; ?><br/>
                         <?php
                     }
                     ?>
@@ -148,14 +148,14 @@ elseif($_GET["etape"]==2)
 
 
     ?>
-    <p>Date d'arrivée : <?php echo $_SESSION["reservation"]->getDateArrivee();?></p>
-    <p>Date de départ : <?php echo $_SESSION["reservation"]->getDateDepart(); ?></p>
+    <p>Date d'arrivée : <?php echo $_SESSION["reservation"]->getDateArrivee("str");?></p>
+    <p>Date de départ : <?php echo $_SESSION["reservation"]->getDateDepart("str"); ?></p>
     <p>Equipement : <?php echo $equipement_str; ?></p>
     <p>Vos options : 
     <?php 
      echo $_SESSION["reservation"]->getBorne("str");
      echo $_SESSION["reservation"]->getClub("str") ;
-     echo $_SESSION["reservation"]->getACtivites("str");
+     echo $_SESSION["reservation"]->getActivites("str");
      ?></p>
 
 
@@ -219,9 +219,10 @@ elseif($_GET["etape"]==3)
     $club_str=$_SESSION["reservation"]->getClub("str") ;
     $activites_str=$_SESSION["reservation"]->getACtivites("str");
     $club=$_SESSION["reservation"]->getClub();
-    $activites=$_SESSION["reservation"]->getActivites();
+    $activites=$_SESSION["reservation"]->getActivites(null);
     $emplacement=$_SESSION["reservation"]->getEmplacement();
     $emplacement_str=$_SESSION["reservation"]->getEmplacement("str");
+
     $_SESSION["reservation"]->setNbEmplacements();
     $nb_emplacements=$_SESSION["reservation"]->getNbEmplacements();
     $id_utilisateur=$_SESSION["user"]->getid();
@@ -236,7 +237,7 @@ elseif($_GET["etape"]==3)
     <p>Date d'arrivée : <?php echo $date_arrivee_str ;?></p>
     <p>Date de départ : <?php echo $date_depart_str; ?></p>
     <p>Equipement : <?php echo $equipement_str; ?></p>
-    <p>Vos options : <?php echo $borne_str ; echo $club_str ; echo $activites_str; ?></p>
+    <p>Vos options : <?php echo $borne_str. $club_str.$activites_str; ?></p>
     <p>Emplacement : <?php echo $emplacement_str ?></p>
     <p>Prix : <?php echo $prix." €" ; ?></p>
 
@@ -254,7 +255,9 @@ elseif($_GET["etape"]==3)
             $_SESSION["reservation"]->connect();
             $_SESSION["reservation"]->execute("INSERT INTO reservations (debut,fin,nb_jours,id_utilisateur,id_emplacement,nb_emplacement,id_borne,id_club,id_activites,prix) VALUES (\"$date_arrivee\",\"$date_depart\",\"$nb_jours\",\"$id_utilisateur\",\"$emplacement\",\"$nb_emplacements\",\"$borne\",\"$club\",\"$activites\",\"$prix\")");
             $_SESSION["reservation"]->close();
+            //Retour vers la page profil
             header("location:profil.php");
+
         }
         if($_POST["submit"]=="Modifier la réservation")
         {

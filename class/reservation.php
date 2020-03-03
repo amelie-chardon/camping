@@ -58,10 +58,10 @@ class reservation extends user{
     {
         //Récupération des prix sur la BDD
         $this->connect();
-        $prix_emplacement=$this->execute("SELECT prix FROM PRIX WHERE nom=\"emplacement\"");
-        $prix_borne=$this->execute("SELECT prix FROM PRIX WHERE nom=\"borne\"");
-        $prix_club=$this->execute("SELECT prix FROM PRIX WHERE nom=\"club\"");
-        $prix_activites=$this->execute("SELECT prix FROM PRIX WHERE nom=\"activites\"");
+        $prix_emplacement=$this->execute("SELECT prix FROM PRIX WHERE nom=\"Emplacement\"");
+        $prix_borne=$this->execute("SELECT prix FROM PRIX WHERE nom=\"Borne\"");
+        $prix_club=$this->execute("SELECT prix FROM PRIX WHERE nom=\"Club\"");
+        $prix_activites=$this->execute("SELECT prix FROM PRIX WHERE nom=\"Activites\"");
         $this->close();
         $prix_emplacement=intval($prix_emplacement[0][0]);
         $prix_borne=intval($prix_borne[0][0]);
@@ -80,7 +80,7 @@ class reservation extends user{
 
     public function getDateArrivee($var=null)
     {
-        if($var="str")
+        if($var=="str")
         {
             return date("d/m/Y",strtotime($this->date_arrivee));
         }
@@ -90,9 +90,9 @@ class reservation extends user{
         }
     }
 
-    public function getDateDepart()
+    public function getDateDepart($var=null)
     {
-        if($var="str")
+        if($var=="str")
         {
             return date("d/m/Y",strtotime($this->date_depart));
         }
@@ -116,7 +116,7 @@ class reservation extends user{
             $emplacement=$this->execute("SELECT * FROM EMPLACEMENTS WHERE id=$this->emplacement");
             return $emplacement[0][1];
         }
-        if($var==null)
+        else
         {
             return $this->emplacement;
         }
@@ -135,7 +135,7 @@ class reservation extends user{
             $equipement=$this->execute("SELECT * FROM EQUIPEMENTS WHERE id=$this->equipement");
             return $equipement[0][1];
         }
-        if($var==null) 
+        else
         {
             return $this->equipement;
         }
@@ -169,10 +169,11 @@ class reservation extends user{
 
     public function getActivites($var=null)
     {
-        if($var="str")
+        if($var=="str")
         {
             if($this->activites==1) return "<p>Accès aux activités Yoga, Frisbee et Ski Nautique</p>";
         }
+        else
         {
             return $this->activites;
         }

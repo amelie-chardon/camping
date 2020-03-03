@@ -19,7 +19,7 @@ session_start();
 
 <body>
 
-<?php require 'header.php';?>
+        <?php require 'header.php';?>
 
 <main>
 </main>

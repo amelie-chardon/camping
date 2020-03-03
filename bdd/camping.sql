@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 02 mars 2020 à 14:18
+-- Généré le :  mar. 03 mars 2020 à 10:34
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.2.18
 
@@ -78,6 +78,7 @@ DROP TABLE IF EXISTS `options`;
 CREATE TABLE IF NOT EXISTS `options` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
@@ -85,10 +86,10 @@ CREATE TABLE IF NOT EXISTS `options` (
 -- Déchargement des données de la table `options`
 --
 
-INSERT INTO `options` (`id`, `nom`) VALUES
-(1, 'Borne'),
-(2, 'Club'),
-(3, 'Activites');
+INSERT INTO `options` (`id`, `nom`, `description`) VALUES
+(1, 'Borne', 'AccÃ¨s Ã  la borne Ã©lectrique'),
+(2, 'Club', 'AccÃ¨s au Disco-Club â€œLes girelles dansantesâ€ '),
+(3, 'Activites', 'AccÃ¨s aux activitÃ©s Yoga, Frisbee et Ski Nautique ');
 
 -- --------------------------------------------------------
 
@@ -102,17 +103,19 @@ CREATE TABLE IF NOT EXISTS `prix` (
   `nom` varchar(255) NOT NULL,
   `prix` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `prix`
 --
 
 INSERT INTO `prix` (`id`, `nom`, `prix`) VALUES
-(1, 'emplacement', 10),
-(2, 'borne', 2),
-(3, 'club', 17),
-(4, 'activites', 30);
+(1, 'Emplacement', 10),
+(2, 'Borne', 2),
+(3, 'Club', 17),
+(4, 'Activites', 30),
+(5, 'Tente', 10),
+(6, 'Camping-car', 20);
 
 -- --------------------------------------------------------
 
@@ -134,16 +137,19 @@ CREATE TABLE IF NOT EXISTS `reservations` (
   `id_activites` int(11) NOT NULL,
   `prix` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `reservations`
 --
 
 INSERT INTO `reservations` (`id`, `debut`, `fin`, `nb_jours`, `id_utilisateur`, `id_emplacement`, `nb_emplacement`, `id_borne`, `id_club`, `id_activites`, `prix`) VALUES
+(28, '2020-03-19', '2020-03-20', 1, 12, 2, 2, 0, 1, 1, 67),
+(27, '2020-03-19', '2020-03-20', 1, 12, 2, 1, 0, 1, 0, 27),
 (24, '2020-03-04', '2020-03-05', 1, 12, 3, 1, 1, 0, 0, 12),
-(20, '2020-03-03', '2020-03-04', 1, 12, 1, 1, 0, 1, 0, 27),
-(21, '2020-03-13', '2020-03-15', 2, 12, 2, 1, 0, 0, 1, 80);
+(20, '2020-03-03', '2020-03-06', 1, 12, 1, 2, 0, 1, 0, 27),
+(21, '2020-03-13', '2020-03-15', 2, 12, 2, 2, 0, 0, 1, 80),
+(26, '2020-03-04', '2020-03-05', 3, 12, 1, 2, 1, 0, 0, 12);
 
 -- --------------------------------------------------------
 
