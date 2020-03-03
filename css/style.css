@@ -1,0 +1,140 @@
+
+/*GENERAL*/
+html
+{
+    margin:0;
+    padding: 0;
+}
+
+body
+{
+    margin:0;
+    padding:0;
+}
+
+h1
+{
+    display: flex;
+    font-size: 40px;
+    justify-content: center;
+}
+
+button a
+{
+    text-decoration: none;
+}
+
+button
+{
+    font-size: 20px;
+}
+
+a{
+    color:black;
+    text-decoration: none;
+}
+
+
+/*HEADER*/
+
+header
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+header nav
+{
+    display: flex;
+    height:8vh;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.308);
+}
+
+header ul
+{
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    padding-inline-start: 0;
+}
+
+header li
+{
+    padding: 0 15px;
+}
+
+header li a
+{
+    font-size: 25px;
+    color: #faf6f6;
+    text-decoration: none;
+    font-family: 'Quicksand', sans-serif;
+}
+
+header li a:hover
+{
+    color: blanchedalmond;
+    text-shadow: 1px 1px 0 #969696, 1px 13px 5px #aba8a8;
+}
+
+/*FOOTER*/
+
+
+footer
+{
+    display: flex;
+    background-color: rgba(33,33,33,0.7);
+    background-position: center;
+    background-size: cover;
+    height: 15vh;
+    align-content: center;
+    align-items:center;
+    justify-content: center;
+}
+
+/*INSCRIPTION/CONNEXION*/
+
+.formulaire
+{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    max-width:25vw;
+    margin: auto;
+    padding:15px;
+    background-color: rgba(220,152,117,0.7);
+}
+
+.formulaire label
+{
+    display: flex;
+    flex-direction:column;
+    align-items:center;
+    align-content:center;
+    justify-items:center;
+    max-width: 20vw;
+    font-size: 15px;
+    text-shadow: 4px 4px 12px rgba(253, 255, 147, 0.795);
+}
+
+.formulaire input
+{
+    display: flex;
+    flex-direction:column;
+    align-items:center;
+    align-content:center;
+    justify-items:center;
+    font-size: 15px;
+    max-width: 20vw;
+
+    color: rgb(22, 22, 22);
+    text-shadow: 4px 4px 12px rgba(253, 255, 147, 0.795);
+}
+
