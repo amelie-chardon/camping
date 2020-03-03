@@ -103,7 +103,7 @@ foreach($price as $price3)
     <tr>
     <td><?php echo $price3[1] ; ?> </td>
     <td><?php echo $price3[0] ; ?> </td>
-    <td> </td>
+    <td></td>
     <td>
     <form method="post" action="admin.php" id="modifier">
     <input type="text" name="<?php echo $price3[2] ;?>" value =""></td>
