@@ -1,6 +1,8 @@
 <?php 
 require 'class/bdd.php';
 require 'class/user.php';
+require 'class/reservation.php';
+
 
 
 session_start();
@@ -31,9 +33,8 @@ if($_SESSION['user']->isConnected() != true){
 
 <main>
 <section>
-    <h1> Mon profil </h1>
-  
-            <form action="profil.php" method="post">
+    <h1> Mon compte </h1>
+            <form action="profil.php" class="formulaire" method="post">
                 <label>Login</label>
                 <input type="text" name="login" required><br>
                 <label>Mail</label>

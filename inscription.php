@@ -57,12 +57,10 @@ if($_SESSION['user']->isConnected() != false){
 <?php
 
 if(isset($_POST['send'])){
-//$result=$_SESSION["user"]->inscription($_POST['login'],$_POST["password"],$_POST['passwordconf'],$_POST['mail']) ;
     if($_SESSION["user"]->inscription($_POST['login'],$_POST["password"],$_POST['passwordconf'],$_POST['mail']) == "ok"){
-    //header("location:connexion.php");
-    ?>
-    <p>Le compte a été créé.</p>
-    <?php
+        ?>
+        <p>Le compte a été créé.</p>
+        <?php
     }
     elseif($_SESSION["user"]->inscription($_POST['login'],$_POST["password"],$_POST['passwordconf'],$_POST['mail']) == "log"){
         ?>
