@@ -54,7 +54,8 @@ if(!isset($_GET["etape"])){
     <input type="date" name="date_debut" min="<?php echo date("d/m/Y", time()) ?>" required/>
     <label>Date de départ</label>
     <input type="date" name="date_fin" min="<?php echo date("d/m/Y", time()+24*3600) ?>" required/>
-    <input type="submit" name="etape" value="1">
+    <input type="hidden" name="etape" value="1">
+    <input type="submit" name="submit" value="Valider">
     </form>
     <?php
 
@@ -73,7 +74,8 @@ if(!isset($_GET["etape"])){
             <input type="date" name="date_debut" min="<?php echo date("d/m/Y", time()) ?>" required/>
             <label>Date de départ</label>
             <input type="date" name="date_fin" min="<?php echo date("d/m/Y", time()+24*3600) ?>" required/>
-            <input type="submit" name="etape" value="1">
+            <input type="hidden" name="etape" value="1">
+            <input type="submit" name="submit" value="Valider">
             </form>
             <p>Veuillez choisir une date de départ postérieure à la date d'arrivée.</p>
             <?php
@@ -124,7 +126,8 @@ elseif($_GET["etape"]==1)
                     }
                     ?>
         <br/>
-        <input type="submit" name="etape" value="2">
+        <input type="hidden" name="etape" value="2">
+        <input type="submit" name="submit" value="Valider">
         </form>
 
 <?php
@@ -199,7 +202,8 @@ elseif($_GET["etape"]==2)
                     }
                     ?>
         </select>
-        <input type="submit" name="etape" value="3">
+        <input type="hidden" name="etape" value="3">
+        <input type="submit" name="submit" value="Valider">
         </form>
 <?php
 }
