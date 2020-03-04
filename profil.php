@@ -30,6 +30,39 @@ if($_SESSION['user']->isConnected() != true){
 
 <?php require 'header.php'?>
 
+<?php 
+$_SESSION['bdd']->connect();
+$reservations=$_SESSION['bdd']->execute("SELECT * FROM reservations where id_utilisateur=12");
+for($i=0;$i<count($reservations);$i++)
+{
+    $reservation[$i]=new reservation();
+    $reservation[$i]->setDate($reservations[$i][1],$reservations[$i][2]);
+    $reservation[$i]->setEmplacement($reservations[$i][5]);
+    $reservation[$i]->setEquipement($reservations[$i][6]);
+    $reservation[$i]->setNbEmplacements();
+    $reservation[$i]->setOptions($reservations[$i][7],$reservations[$i][8],$reservations[$i][9]);
+    $reservation[$i]->setPrix($reservations[$i][10]);
+
+    //echo $reservation[$i]->getDateArrivee("str");
+}
+    echo $reservation[1]->getDateDepart("str");
+    echo $reservation[1]->getDateArrivee("str");
+    echo $reservation[1]->getEmplacement("str");
+    echo $reservation[1]->getEquipement("str");
+    echo $reservation[1]->getBorne("str");
+    echo $reservation[1]->getClub("str");
+    echo $reservation[1]->getActivites("str");
+    echo $reservation[1]->getPrix("str");
+
+
+
+
+
+
+
+
+
+?>
 
 <main>
 <section>
