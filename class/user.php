@@ -114,6 +114,7 @@ class user extends bdd{
     public function getid(){
         return $this->id;
     }
+
     public function isConnected(){
         if ($this->id != null) {
             return true;
@@ -125,10 +126,11 @@ class user extends bdd{
     public function getlogin(){
         return $this->login;
     }
+    
     public function getrole(){
         return $this->role;
     }
 
-   
+
 }
 ?>

@@ -179,9 +179,16 @@ class reservation extends user{
         }
     }
 
-    public function getPrix()
+    public function getPrix($var=null)
     {
-        return $this->prix;
+        if($var==null)
+        {
+            return $this->prix;
+        }
+        else
+        {
+            return $this->prix;
+        }
     }
 }
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 03 mars 2020 à 10:34
+-- Généré le :  mer. 04 mars 2020 à 19:24
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.2.18
 
@@ -113,9 +113,7 @@ INSERT INTO `prix` (`id`, `nom`, `prix`) VALUES
 (1, 'Emplacement', 10),
 (2, 'Borne', 2),
 (3, 'Club', 17),
-(4, 'Activites', 30),
-(5, 'Tente', 10),
-(6, 'Camping-car', 20);
+(4, 'Activites', 30);
 
 -- --------------------------------------------------------
 
@@ -131,25 +129,21 @@ CREATE TABLE IF NOT EXISTS `reservations` (
   `nb_jours` int(11) NOT NULL,
   `id_utilisateur` int(11) NOT NULL,
   `id_emplacement` int(11) NOT NULL,
-  `nb_emplacement` int(11) NOT NULL,
+  `id_equipement` int(11) NOT NULL,
   `id_borne` int(11) NOT NULL,
   `id_club` int(11) NOT NULL,
   `id_activites` int(11) NOT NULL,
   `prix` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `reservations`
 --
 
-INSERT INTO `reservations` (`id`, `debut`, `fin`, `nb_jours`, `id_utilisateur`, `id_emplacement`, `nb_emplacement`, `id_borne`, `id_club`, `id_activites`, `prix`) VALUES
-(28, '2020-03-19', '2020-03-20', 1, 12, 2, 2, 0, 1, 1, 67),
-(27, '2020-03-19', '2020-03-20', 1, 12, 2, 1, 0, 1, 0, 27),
-(24, '2020-03-04', '2020-03-05', 1, 12, 3, 1, 1, 0, 0, 12),
-(20, '2020-03-03', '2020-03-06', 1, 12, 1, 2, 0, 1, 0, 27),
-(21, '2020-03-13', '2020-03-15', 2, 12, 2, 2, 0, 0, 1, 80),
-(26, '2020-03-04', '2020-03-05', 3, 12, 1, 2, 1, 0, 0, 12);
+INSERT INTO `reservations` (`id`, `debut`, `fin`, `nb_jours`, `id_utilisateur`, `id_emplacement`, `id_equipement`, `id_borne`, `id_club`, `id_activites`, `prix`) VALUES
+(29, '2020-03-11', '2020-03-12', 1, 12, 2, 2, 1, 1, 1, 69),
+(31, '2020-03-01', '2020-03-02', 1, 12, 3, 1, 1, 0, 0, 12);
 
 -- --------------------------------------------------------
 

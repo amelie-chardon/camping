@@ -97,12 +97,14 @@ elseif($_GET["etape"]==1)
 
         //Récupération des équipements sur la BDD
         $_SESSION['bdd']->connect();
-        $equipements=$_SESSION['bdd']->execute("SELECT * FROM equipements INNER JOIN prix ON prix.nom=equipements.nom");
+        $equipements=$_SESSION['bdd']->execute("SELECT * FROM equipements");
         $options=$_SESSION['bdd']->execute("SELECT * FROM options INNER JOIN prix ON prix.nom=options.nom");
+        $prix_emplacement=$_SESSION['bdd']->execute("SELECT prix FROM PRIX WHERE nom=\"Emplacement\"");
+        $prix_emplacement=intval($prix_emplacement[0][0]);
         $_SESSION['bdd']->close();
         ?>
     
-        <form class="formulaire" action="reservation-form?etape=3" method="get">
+        <form class="formulaire" action="reservation-form.php?etape=3" method="get">
         <label>Votre équipement</label>
         <select name="Equipement" required/>
                     <option value="">Equipement</option>
@@ -110,7 +112,7 @@ elseif($_GET["etape"]==1)
                     foreach($equipements as $equipement)
                     {
                         ?>
-                        <option value="<?php echo $equipement[0]; ?>"><?php echo $equipement[1].' ('.$equipement[5].' €/jour)' ?></option>
+                        <option value="<?php echo $equipement[0]; ?>"><?php echo $equipement[1].' ('.$prix_emplacement*$equipement[2].'€/jour)' ?></option>
                         <?php
                     }
                     ?>
@@ -137,11 +139,9 @@ elseif($_GET["etape"]==2)
 {
     $date_arrivee=$_SESSION["reservation"]->getDateArrivee();
     $date_depart=$_SESSION["reservation"]->getDateDepart();
-    $nb_emplacements=$_SESSION["reservation"]->setNbEmplacements();
-
     $_SESSION["reservation"]->setEquipement($_GET["Equipement"]);
     $equipement_str=$_SESSION["reservation"]->getEquipement("str");
-
+    $nb_emplacements=$_SESSION["reservation"]->setNbEmplacements();
 
     if(!isset($_GET["Borne"])) $borne=0; else $borne=1;
     if(!isset($_GET["Club"])) $club=0; else $club=1;
@@ -188,7 +188,7 @@ elseif($_GET["etape"]==2)
 
         ?>
     
-        <form class="formulaire" action="reservation-form?etape=3" method="get">
+        <form class="formulaire" action="reservation-form.php?etape=3" method="get">
         <label>Votre emplacement</label>
         <select name="Emplacement" required/>
                     <option value="">Emplacement</option>
@@ -257,7 +257,7 @@ elseif($_GET["etape"]==3)
         {
             //Enregistrement de la réservation dans la BDD
             $_SESSION["reservation"]->connect();
-            $_SESSION["reservation"]->execute("INSERT INTO reservations (debut,fin,nb_jours,id_utilisateur,id_emplacement,nb_emplacement,id_borne,id_club,id_activites,prix) VALUES (\"$date_arrivee\",\"$date_depart\",\"$nb_jours\",\"$id_utilisateur\",\"$emplacement\",\"$nb_emplacements\",\"$borne\",\"$club\",\"$activites\",\"$prix\")");
+            $_SESSION["reservation"]->execute("INSERT INTO reservations (debut,fin,nb_jours,id_utilisateur,id_emplacement,id_equipement,id_borne,id_club,id_activites,prix) VALUES (\"$date_arrivee\",\"$date_depart\",\"$nb_jours\",\"$id_utilisateur\",\"$emplacement\",\"$equipement\",\"$borne\",\"$club\",\"$activites\",\"$prix\")");
             $_SESSION["reservation"]->close();
             //Retour vers la page profil
             header("location:profil.php");
