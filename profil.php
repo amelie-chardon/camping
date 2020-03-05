@@ -48,9 +48,6 @@ if($_SESSION['user']->isConnected() != true){
 	  		<input type="submit" name="submit" id="bouton" value="Valider" />
 	 	</label>
 	</form>
-</section>
-
-</main>
 	
 <?php
 	if(isset($_POST['submit'])) 
@@ -73,12 +70,14 @@ if($_SESSION['user']->isConnected() != true){
 				$reg = mysqli_query($connect, $query2);
 			
 			} 
-			else {echo 'Mot de passe incorrect';}
+			else {echo "<p class='inscription-error'>Mot de passe incorrect</p>";}
 			
-		}else {echo 'Veuillez saisir tous les champs';}
+		}else {echo "<p class='inscription-error'>Veuillez saisir tous les champs</p>";}
 	
 	} 
 ?>
+</section>
+</main>
 	
 <main>
 <section class="formulaire">
@@ -94,8 +93,6 @@ if($_SESSION['user']->isConnected() != true){
 	  		<input type="submit" name="submit2" id="bouton" value="Valider" />
 	 	</label>
 	</form>
-</section>
-</main>
 
 <?php
 	if(isset($_POST['submit2'])) 
@@ -105,7 +102,7 @@ if($_SESSION['user']->isConnected() != true){
 		
 		if(!empty($newpassword) && !empty($ancienpassword))
 		{
-			var_dump($_SESSION['login']);
+
 			$connect = mysqli_connect('localhost','root','', 'camping');
 			$query = "SELECT * FROM utilisateurs WHERE login = '".$_SESSION["user"]->getlogin()."'";
 			$reg = mysqli_query ($connect,$query);
@@ -119,12 +116,14 @@ if($_SESSION['user']->isConnected() != true){
 				$reg = mysqli_query($connect, $query2);
 			
 			} 
-			else {echo 'Mot de passe incorrect';}
+			else {echo "<p class='inscription-error'>Mot de passe incorrect</p>";}
 			
-		}else {echo 'Veuillez saisir tous les champs';}
+		}else {echo "<p class='inscription-error'>Veuillez saisir tous les champs</p>";}
 	
 	} 
 ?>
+</section>
+</main>
 <main>
 <section class="formulaire">
 	<form method="post">
@@ -133,8 +132,6 @@ if($_SESSION['user']->isConnected() != true){
 	  		<input type="submit" name="submit3" id="bouton" value="Se déconnecter" />
 	 	</label>
 	</form>
-</section>
-</main>
 <?php
 	if (isset($_POST['submit3']))
 	{
@@ -143,6 +140,8 @@ if($_SESSION['user']->isConnected() != true){
 		header('location: index.php');
 	}
 ?>
+</section>
+</main>
 <main>
 <section class="formulaire">
 	<form method="post">
@@ -150,27 +149,34 @@ if($_SESSION['user']->isConnected() != true){
 		<label>
 			<input type="password" name="desinscription" class="largeur" id="login" placeholder="Confirmation du mot de passe*" required/><br/>
 		</label>
-		<label>
+		<label class="se-desinscrire">
 	  		<input type="submit" name="submit4" id="bouton2" value="Se désinscrire" />
 	 	</label>
 	</form>
-</section>
-</main>
 <?php
 	if (isset($_POST['submit4']))
 	{
 		if (isset($_POST['desinscription']))
 		{
 			$connect = mysqli_connect('localhost','root','','camping') or die ('Error');
+			$query = "SELECT*FROM utilisateurs WHERE login= '".$_SESSION["user"]->getlogin()."'";
+			$reg = mysqli_query($connect,$query);
+			$rows= mysqli_fetch_assoc($reg);
+			
+			if (password_verify($_POST['desinscription'], $rows['mdp']))
+			{
 			$query = "DELETE FROM utilisateurs WHERE login = '".$_SESSION["user"]->getlogin()."'";
             $reg = mysqli_query ($connect,$query);
 			session_destroy();
 			header('location: index.php');
 			
-		} else echo "Veuillez saisir le mot de passe";
+			} else echo "<p class='inscription-error2'>Mot de passe incorrect</p>";
+			
+		} else echo "<p class='inscription-error2'>Veuillez saisir le mot de passe</p>";
 	}
 ?>
-	
+</section>	
+</main>
 <?php require 'footer.php'?>
 
 

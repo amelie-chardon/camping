@@ -37,8 +37,8 @@ if($_SESSION['user']->isConnected() != false){
 
     <section class="inscription">
                  <h1 class="text-inscription">INSCRIPTION</h1>
-    
-        <form class="formulaire" action="inscription.php" method="post">
+    	<article class="formulaire">
+        <form action="inscription.php" method="post">
 
             <input type="text" name="login" class="largeur" placeholder="Login" required><br>
             <input type="mail" name="mail" class="largeur" placeholder="Adresse Mail" required><br>
@@ -47,34 +47,35 @@ if($_SESSION['user']->isConnected() != false){
            <input type="submit" name="send" value="S'inscrire">
         </form>
 
-    </section>
-<section>
+ 
+
 <?php
 
 if(isset($_POST['send'])){
     if($_SESSION["user"]->inscription($_POST['login'],$_POST["password"],$_POST['passwordconf'],$_POST['mail']) == "ok"){
         ?>
-        <p>Le compte a été créé.</p>
+        <p class="inscription-error">Le compte a été créé.</p>
         <?php
     }
     elseif($_SESSION["user"]->inscription($_POST['login'],$_POST["password"],$_POST['passwordconf'],$_POST['mail']) == "log"){
         ?>
-            <p>L'identifiant ou l'email est déjà pris.</p>
+            <p class="inscription-error">L'identifiant ou l'email est déjà pris.</p>
         <?php
     }
     elseif($_SESSION["user"]->inscription($_POST['login'],$_POST["password"],$_POST['passwordconf'],$_POST['mail']) == "empty"){
         ?>
-            <p>Veuillez remplir tous les champs.</p>
+            <p class="inscription-error">Veuillez remplir tous les champs.</p>
         <?php
     }
     elseif($_SESSION["user"]->inscription($_POST['login'],$_POST["password"],$_POST['passwordconf'],$_POST['mail']) == "mdp"){
         ?>
-            <p>Les mots de passes ne sont pas identiques.</p>
+            <p class="inscription-error">Les mots de passes ne sont pas identiques.</p>
         <?php
     }
 }
 ?>
-</section>
+		</article>
+	</section>
 
     </main>
 

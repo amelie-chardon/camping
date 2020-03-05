@@ -77,7 +77,7 @@ if(!isset($_GET["etape"])){
             <input type="hidden" name="etape" value="1">
             <input type="submit" name="submit" value="Valider">
             </form>
-            <p>Veuillez choisir une date de départ postérieure à la date d'arrivée.</p>
+            <p class='inscription-error'>Veuillez choisir une date de départ postérieure à la date d'arrivée.</p>
             <?php
         }
     }
@@ -240,7 +240,7 @@ elseif($_GET["etape"]==3)
     <p class="date">Date d'arrivée : <?php echo $date_arrivee_str ;?></p>
     <p class="date">Date de départ : <?php echo $date_depart_str; ?></p>
     <p class="date">Equipement : <?php echo $equipement_str; ?></p>
-    <h1 class="salut">Vos options :</h1><p class="date"><?php echo $borne_str. $club_str.$activites_str; ?></p>
+    <h1 class="modifier">Vos options :</h1><p class="date"><?php echo $borne_str. $club_str.$activites_str; ?></p>
     <p class="date">Emplacement : <?php echo $emplacement_str ?></p>
     <p class="date">Prix : <?php echo $prix." €" ; ?></p>
 
