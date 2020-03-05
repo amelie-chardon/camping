@@ -29,14 +29,14 @@ if(!isset($_SESSION['role'])){
         <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body class="body2">
 
 <?php require 'header.php'?>
 
 
 <main>
-<section>
-    <h1> Administration du site </h1>
+<section class"admin">
+    <h1 class="admin-titre"> Administration du site </h1>
             
 
 
@@ -49,7 +49,7 @@ $reservations=$_SESSION['bdd']->execute("SELECT * FROM reservations INNER JOIN u
 $_SESSION['bdd']->close();
 
 ?>
-<h2>Tableau des réservations en cours</h2>
+<h2 class="admin-sous-titre">Tableau des réservations en cours</h2>
 
 <table>
 <thead>
@@ -75,13 +75,13 @@ for($i=0;$i<count($reservations);$i++)
     $login_reservation[$i]=$reservations[$i][12];
     $reservation[$i]=new reservation();
     $reservation[$i]->setDate($reservations[$i][1],$reservations[$i][2]);
+    $reservation[$i]->setNbJours();
     $reservation[$i]->setEmplacement($reservations[$i][5]);
     $reservation[$i]->setEquipement($reservations[$i][6]);
     $reservation[$i]->setNbEmplacements();
     $reservation[$i]->setOptions($reservations[$i][7],$reservations[$i][8],$reservations[$i][9]);
     $reservation[$i]->setPrix($reservations[$i][10]);
 ?>
-
     <tr>
     <td><?php echo $id_reservation[$i] ?> </td>
     <td><?php echo $login_reservation[$i]; ?> </td>
@@ -89,11 +89,11 @@ for($i=0;$i<count($reservations);$i++)
     <td><?php echo $reservation[$i]->getDateArrivee("str"); ?> </td>
     <td><?php echo $reservation[$i]->getEquipement("str"); ?> </td>
     <td><?php echo $reservation[$i]->getEmplacement("str"); ?> </td>
-    <td><?php echo $reservation[$i]->getBorne("str").$reservation[$i]->getClub("str").$reservation[$i]->getActivites("str") ?> </td>
+    <td><?php echo '<p>'.$reservation[$i]->getBorne("str").'</p><p>'.$reservation[$i]->getClub("str").'</p><p>'.$reservation[$i]->getActivites("str").'</p>' ?> </td>
     <td><?php echo $reservation[$i]->getPrix("str")."€"; ?> </td>
     <td>
     <form method="post" action="admin.php" id="suppression">
-    <button type="submit" id="submit" name="resat" value ="<?php echo $id_reservation[$i];?>">Supprimer</button></form>
+    <button type="submit" class="le-bouton3" name="resat" value ="<?php echo $id_reservation[$i];?>">Supprimer</button></form>
     </td>
     </tr>
 
@@ -113,14 +113,14 @@ for($i=0;$i<count($reservations);$i++)
 </tbody>
 </table>
 
-<h2>Tableau des prix</h2>
+<h2 class="admin-sous-titre">Tableau des prix</h2>
 <?php
 
 //Affichage de la liste des prix
 $_SESSION['bdd']->connect();
 $price=$_SESSION['bdd']->execute("SELECT prix,nom,id FROM prix");
 ?>
-<table>
+<table class="le-tableau2">
 <thead>
     <tr>
         <th>Type</th>
@@ -138,8 +138,8 @@ foreach($price as $price3)
     <td><?php echo $price3[1] ; ?> </td>
     <td><?php echo $price3[0].'€'; ?> </td>
     <td>
-    <form method="post" action="admin.php" id="modifier">
-    <input type="text" placeholder="Nouveau prix" name="<?php echo $price3[2] ;?>" value ="">
+    <form method="post" action="admin.php" id="modifier_prix">
+    <input type="text" placeholder="Nouveau prix" class="largeur2" name="<?php echo $price3[2] ;?>" value ="">
     <input type="submit" id="submit" name="price<?php echo $price3[2];?>" value="Modifier"/>
     </form>
     </td>

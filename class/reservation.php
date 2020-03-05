@@ -15,9 +15,20 @@ class reservation extends user{
 
     //Fonctions pour la définition des variables
 
+
     public function setDate($arrivee,$depart)
     {
         $this->date_arrivee =$arrivee;
+        $this->date_depart =$depart;
+    }
+
+    public function setDateArrivee($arrivee)
+    {
+        $this->date_arrivee =$arrivee;
+    }
+
+    public function setDateDepart($depart)
+    {
         $this->date_depart =$depart;
     }
 
@@ -77,6 +88,11 @@ class reservation extends user{
     }
 
     //Fonctions pour l'affichage
+
+    public function getTestDate($test_date)
+    {
+        return $this->test_date;
+    }
 
     public function getDateArrivee($var=null)
     {
@@ -145,7 +161,7 @@ class reservation extends user{
     {
         if($var=="str")
         {
-            if($this->borne==1) return "<p>Accès à la borne électrique</p>";
+            if($this->borne==1) return "Accès à la borne électrique";
         }
         else
         {
@@ -158,7 +174,7 @@ class reservation extends user{
     {
         if($var=="str")
         {
-            if($this->club==1) return "<p>Accès au Disco-Club 'Les girelles dansantes'</p>";
+            if($this->club==1) return "Accès au Disco-Club 'Les girelles dansantes'";
         }
         else
         {
@@ -171,7 +187,7 @@ class reservation extends user{
     {
         if($var=="str")
         {
-            if($this->activites==1) return "<p>Accès aux activités Yoga, Frisbee et Ski Nautique</p>";
+            if($this->activites==1) return "Accès aux activités Yoga, Frisbee et Ski Nautique";
         }
         else
         {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 04 mars 2020 à 19:24
+-- Généré le :  jeu. 05 mars 2020 à 21:19
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.2.18
 
@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `reservations` (
   `id_activites` int(11) NOT NULL,
   `prix` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `reservations`
@@ -143,7 +143,9 @@ CREATE TABLE IF NOT EXISTS `reservations` (
 
 INSERT INTO `reservations` (`id`, `debut`, `fin`, `nb_jours`, `id_utilisateur`, `id_emplacement`, `id_equipement`, `id_borne`, `id_club`, `id_activites`, `prix`) VALUES
 (29, '2020-03-11', '2020-03-12', 1, 12, 2, 2, 1, 1, 1, 69),
-(31, '2020-03-01', '2020-03-02', 1, 12, 3, 1, 1, 0, 0, 12);
+(32, '2020-03-12', '2020-03-13', 1, 11, 2, 1, 0, 0, 1, 40),
+(31, '2020-03-01', '2020-03-02', 1, 12, 3, 1, 1, 0, 0, 12),
+(33, '2020-03-19', '2020-03-21', 2, 11, 1, 2, 1, 0, 0, 44);
 
 -- --------------------------------------------------------
 
@@ -166,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
 --
 
 INSERT INTO `utilisateurs` (`id`, `login`, `mdp`, `mail`, `role`) VALUES
-(12, 'azerty', '$2y$12$jducomslBLdcq7Il7k.i.Of1KtaJGE.Wg9Z4bZCqxPnqnlGQhgy7m', 'azerty@sfr.fr', 'membre'),
+(12, 'azerty', '$2y$10$tTilsTsFD1YU.fVtk9cQDOFcqNJvt0pALe8BBl.wM6bk56plgAPqy', 'azerty@sfr.fr', 'membre'),
 (11, 'admin', '$2y$12$b/hXugDqjafmFdpm1B3DP.iA4bC2lA5yb3QheUUOIr5RgbjEj0XyW', 'admin@laplateforme.io', 'admin');
 COMMIT;
 

@@ -12,12 +12,32 @@ body
     padding:0;
 }
 
-h1
-{
-    display: flex;
-    font-size: 40px;
-    justify-content: center;
+@font-face {
+	font-family: "Helvetica";
+	src: url("css/Helvetica.dfont") format("truetype");
 }
+
+@font-face {
+	font-family: "Alternate";
+	src: url("D-DINCondensed-Bold.otf") format("truetype");
+}
+
+.body1 {
+	background-image: url("fond.png");
+	background-position: center;
+	background-size: cover;
+	height: 100vh;
+}
+
+.body2 {
+	background-image: url("fond.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	/*background-size: 190%;*/
+
+}
+
 
 button a
 {
@@ -37,22 +57,32 @@ a{
 input[type="submit"]
 {
     cursor:pointer;
-    font-family: "Bold";
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-	padding-bottom: 4px;
-	margin-top: 40px;
-	box-shadow: 0px 1px 10px grey;
-	background-color: #335BD4;
+	/*padding-bottom: 4px;
+	margin-top: 40px;*/
+	margin:15px;
+	/*margin-left:0;*/
+	background-color: #E3463C;
+	border-color: #E3463C;
 	text-decoration: none;
-	width: 220px;
+	width: 297px;
 	height: 50px;
 	text-align:center;
-	transition: all 0.2s ease;
 	color: white;
-	border-radius: 40px;
+	border-radius: 4px;
+	font-family: "Helvetica";
 	font-size: 18px;
+}
+
+input[type="submit"]:hover {
+	background-color: black;
+	border-color: black;
+}
+
+#bouton2 {
+	margin-bottom: 4em;
 }
 
 /*HEADER*/
@@ -61,10 +91,10 @@ header
 {
     display: flex;
     flex-direction: row;
-    align-items: center;
     align-content: center;
-    justify-content: space-evenly;
+    justify-content: flex-end;
     align-items: center;
+	margin-right: 10em;
 }
 
 header nav
@@ -85,21 +115,83 @@ header ul
 
 header li
 {
-    padding: 0 15px;
+    padding: 0 20px;
 }
 
 header li a
 {
-    font-size: 25px;
+    font-size: 18px;
     color: #faf6f6;
     text-decoration: none;
-    font-family: 'Quicksand', sans-serif;
+	font-family: 'Helvetica';
 }
 
 header li a:hover
 {
-    color: blanchedalmond;
-    text-shadow: 1px 1px 0 #969696, 1px 13px 5px #aba8a8;
+    color: #E3463C;
+}
+
+
+/*INDEX*/
+
+.centre {
+	min-height:66vh;
+}
+
+.centre2 {
+	min-height: 76vh;
+}
+
+#camping-titre {
+	font-family: "Alternate";
+	font-size: 100px;
+	color: #FFFFFF;
+	padding-top: 0.8em;
+	padding-bottom: 35px;
+	margin-bottom: 0px;
+	margin-left: 1.5em;
+}
+
+.mes-reservations {
+	display: flex;
+	justify-content: center;
+}
+
+.le-bouton {
+	background-color: #E3463C;
+	width: 14em;
+	display: flex;
+	justify-content: center;
+	padding-top: 1.3em;
+	padding-bottom: 1.3em;
+	border-radius: 4px;
+	margin-left: 9.5em;
+}
+
+.le-bouton2 {
+	background-color: #E3463C;
+	width: 297px;
+	height: 30px;
+	display: flex;
+	justify-content: center;
+	padding-top: 1em;
+	padding-bottom: 0.2em;
+	border-radius: 4px;
+	font-size: 14px;
+}
+
+.le-bouton:hover {
+	background-color: black;
+}
+
+.le-bouton2:hover {
+	background-color: black;
+}
+
+.bouton-reserver {
+	color: #FFFFFF;
+	font-family: 'Helvetica';
+	font-size: 16px;
 }
 
 /*FOOTER*/
@@ -107,8 +199,9 @@ header li a:hover
 
 footer
 {
+	font-family: 'Helvetica';
     display: flex;
-    background-color: rgba(33,33,33,0.7);
+    background-color: white;
     background-position: center;
     background-size: cover;
     height: 15vh;
@@ -118,6 +211,44 @@ footer
 }
 
 /*INSCRIPTION/CONNEXION*/
+.inscription {
+	display: flex;
+	height: 77vh;
+	color: white;
+}
+
+.inscription-error {
+	color: white;
+	font-family: "Helvetica";
+}
+
+.inscription-error2 {
+	color: white;
+	font-family: "Helvetica";
+	padding-bottom: 4em;
+}
+
+.text-inscription {
+	font-family: "Alternate";
+	font-size: 100px;
+	margin-left: 1.5em;
+	margin-top: 2.2em;
+}
+#titre{
+	font-family: "Helvetica";
+	color: white;
+	text-align: center;
+}
+
+
+.modifier {
+	font-family: "Helvetica";
+	color: white;
+	font-size: 18px;
+	text-align: center;
+	padding-top: 4em;
+	padding-bottom: 4em;
+}
 
 .formulaire
 {
@@ -126,10 +257,26 @@ footer
     justify-content: center;
     align-content: center;
     align-items: center;
-    max-width:25vw;
-    margin: auto;
-    padding:15px;
-    background-color: rgba(220,152,117,0.7);
+	margin: 0px;
+}
+
+.formulaire_connexion,.formulaire_inscription
+{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+	margin: 0px;
+	margin-left:2em;
+}
+
+.largeur {
+	width: 297px;
+	height: 3em;
+	padding-left: 1.5em;
+	font-family: "Helvetica";
+	border-radius: 4px;
 }
 
 .formulaire label
@@ -139,9 +286,8 @@ footer
     align-items:center;
     align-content:center;
     justify-items:center;
-    max-width: 20vw;
+    max-width: 25vw;
     font-size: 15px;
-    text-shadow: 4px 4px 12px rgba(253, 255, 147, 0.795);
 }
 
 .formulaire input
@@ -152,9 +298,174 @@ footer
     align-content:center;
     justify-items:center;
     font-size: 15px;
-    max-width: 20vw;
-
-    color: rgb(22, 22, 22);
-    text-shadow: 4px 4px 12px rgba(253, 255, 147, 0.795);
+	
 }
 
+.le-tableau {
+	/*width: 100vw;*/
+	display: flex;
+	justify-content: center;
+}
+
+table {
+	color: white;
+	padding-bottom: 10em;
+	margin-top: 2em;
+}
+
+table p
+{
+	margin:2px;
+}
+
+th {
+	font-family: "Helvetica";
+	color: #E3463C;
+	padding-right: 15px;
+	padding-left: 15px;
+	padding-bottom: 15px;
+}
+
+td {
+	color: white;
+	font-family: "Helvetica";
+	text-align: center;
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+/*FORMULAIRE*/
+.date {
+	color: white;
+	font-family: "Helvetica";
+}
+
+.tout-formulaire {
+	height: 140vh;
+	text-align: center;
+}
+
+.les-dates {
+	width: 297px;
+	height:80px;
+}
+
+select {
+	width: 27em;
+	height: 3em;
+}
+
+form {
+	margin: 0px;
+}
+
+
+/* Aspect de la case */
+input[type="checkbox"]:not(:checked) + label:before,
+input[type="checkbox"]:checked + label:before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 1.4em;
+	height: 1.4em;
+	border: 1px solid #aaa;
+	background: #FFF;
+	border-radius: .2em;
+	box-shadow: inset 0 1px 3px rgba(0,0,0, .1), 0 0 0 rgba(203, 34, 237, .2);
+	transition: all .275s;
+}
+
+/* Aspect de la coche */
+input[type="checkbox"]:not(:checked) + label:after,
+input[type="checkbox"]:checked + label:after {
+	content: '✕';
+	position: absolute;
+	top: .38em;
+	left: .18em;
+	font-size: 1.6em;
+	color: #CB22ED;
+	line-height: 0;
+	transition: all .2s; /* Petite transition */
+}
+
+/* Aspect non cochée */
+input[type="checkbox"]:not(:checked) + label:after {
+	opacity: 0;
+	transform: scale(0) rotate(45deg);
+}
+
+/* Aspect cochée */
+input[type="checkbox"]:checked + label:after {
+	opacity: 1;
+	transform: scale(1) rotate(0);
+}
+
+.salut {
+	color: white;
+}
+
+/*PAGE ADMIN*/
+.admin {
+	margin-left: 1.5em;
+}
+
+.admin-titre {
+	margin-left: 6em;
+	font-family: "Helvetica";
+	color: white;
+}
+
+.admin-sous-titre {
+	margin-left: 8em;
+	margin-top: 2.5em;
+	padding-bottom: 2.5em;
+	font-family: "Helvetica";
+	color: white;	
+	font-size: 18px;
+}
+
+
+.largeur2 {
+	/*margin-top: 5em;*/
+	width: 15em;
+	height: 3em;
+	padding-left: 1.5em;
+	font-family: "Helvetica";
+	border-radius: 4px;
+	margin:auto;
+}
+
+.le-bouton3 {
+	background-color: #E3463C;
+	border-color: #E3463C;
+	color: white;
+	font-family: "Helvetica";
+	font-size: 16px;
+	height: 2em;
+	width: 9em;
+	margin-top: 1.2em;
+	border-radius: 0.2em;
+}
+
+#modifier_prix
+{
+	display: flex;
+	flex-direction: row;
+}
+
+
+.le-tableau2 {
+	justify-content: center;
+	justify-items: center;
+	align-items: center;
+	align-content: center;
+}
+
+.le-tableau2 td{
+	padding:15px;
+}
+
+#bouton-ins,#bouton-co{
+	margin-left:0;
+}

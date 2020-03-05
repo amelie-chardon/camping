@@ -29,33 +29,27 @@ if($_SESSION['user']->isConnected() != false){
 
 </head>
 
-<body>
+<body class="body1">
 
 <?php require 'header.php'?>
 
 
 <main>
 
-<section class="connexion">
-                 <h1> Connexion </h1>
-   
-        <form class="formulaire" action="connexion.php" method="post">
-        
-            <label>Identifiant</label>
-            <input type="text" name="login" required><br>
-            <label>Mot de passe</label>
-            <input type="password" name="password" required><br>
-
-            <input type="submit" name="send">
+<section class="inscription">
+                 <h1 class="text-inscription"> CONNEXION </h1>
+   		<article class="formulaire_connexion">
+        <form action="connexion.php" method="post">
+        	<input type="text" name="login" class="largeur" placeholder="Identifiant" required><br>
+            <input type="password" name="password" class="largeur" placeholder="Mot de passe" required><br>
+            <input id="bouton-co" type="submit" name="send">
         </form>
 
-</section>
-<section>
 <?php
 if(isset($_POST["send"])){
     if($_SESSION["user"]->connexion($_POST["login"],$_POST["password"]) == false){
         ?>
-            <p>Un problème est survenue lors de la connexion. Veuillez vérifer vos informations de connexion.</p>
+            <p class="inscription-error">Un problème est survenu lors de la connexion.<br/><br/> Veuillez vérifer vos informations de connexion.</p>
         <?php
     }
     else{
@@ -70,6 +64,7 @@ if(isset($_POST["send"])){
 }
 
 ?>
+		</article>
 </section>
 
 </main>

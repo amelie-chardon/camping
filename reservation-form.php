@@ -30,68 +30,59 @@ if($_SESSION['user']->isConnected() != true){
         <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
     </head>
 
-<body>
+<body class="body1">
 
 <?php require 'header.php'?>
 
 
 <main>
-<section>
-    <h1> Formulaire de réservation </h1>
+<section class="tout-formulaire">
+    <h1 class="modifier"> Formulaire de réservation</h1>
 
 <?php 
 
-//PAGE 1 : CHOIX DES DATES
+//PAGE 1 : CHOIX DE LA DATE D'ARRIVEE
 
-if(!isset($_GET["etape"])){
-
-    $date_actuelle=date("Y-m-d", time());
-
+if(!isset($_GET["etape"]))
+{
     ?>
-
-    <form class="formulaire" action="reservation-form.php?etape=2" method="get">
-    <label>Date d'arrivée</label>
-    <input type="date" name="date_debut" min="<?php echo date("d/m/Y", time()) ?>" required/>
-    <label>Date de départ</label>
-    <input type="date" name="date_fin" min="<?php echo date("d/m/Y", time()+24*3600) ?>" required/>
-    <input type="hidden" name="etape" value="1">
-    <input type="submit" name="submit" value="Valider">
+    <form class="formulaire" action="reservation-form.php" method="get">
+    <label><p class="date">Date d'arrivée</p></label>
+    <input type="date" name="date_debut" class="les-dates" min="<?php echo date("Y-m-d", time()) ?>" required/>
+        <input type="hidden" name="etape" value="1">
+    <input type="submit" name="submit-date" value="Valider">
     </form>
     <?php
-
-    if(isset($_GET["date_debut"]))
-    {
-        $date_debut=$_GET["date_debut"];
-        $date_fin=$_GET["date_fin"];
-        $_SESSION["reservation"]->setDateArrivee($_GET['date_debut']);
-
-        //Verification que la date de départ est postérieure à la date d'arrivée
-        if(strtotime($_GET["date_fin"])<=strtotime($_GET["date_debut"]))
-        {
-            ?>
-            <form class="formulaire" action="reservation-form.php?etape=2" method="get">
-            <label>Date d'arrivée</label>
-            <input type="date" name="date_debut" min="<?php echo date("d/m/Y", time()) ?>" required/>
-            <label>Date de départ</label>
-            <input type="date" name="date_fin" min="<?php echo date("d/m/Y", time()+24*3600) ?>" required/>
-            <input type="hidden" name="etape" value="1">
-            <input type="submit" name="submit" value="Valider">
-            </form>
-            <p>Veuillez choisir une date de départ postérieure à la date d'arrivée.</p>
-            <?php
-        }
-    }
 }
-//PAGE 2 : CHOIX DES EQUIPEMENTS/OPTIONS
-
 elseif($_GET["etape"]==1)
 {
-    $_SESSION["reservation"]->setDate($_GET['date_debut'],$_GET['date_fin']);
-    $date_arrivee=$_SESSION["reservation"]->getDateArrivee("str");
-    $date_depart=$_SESSION["reservation"]->getDateDepart("str");
+    $_SESSION["reservation"]->setDateArrivee($_GET['date_debut']);
+    $date_arrivee=$_SESSION["reservation"]->getDateArrivee();
+    $date_arrivee_str=$_SESSION["reservation"]->getDateArrivee("str");
+
+   ?>
+    <p class="date">Date d'arrivée : <?php echo $date_arrivee_str;?></p>
+
+    <form class="formulaire" action="reservation-form.php" method="get">
+    <label><p class="date">Date de départ</p></label>
+<input type="date" name="date_fin" class="les-dates" min="<?php echo date("Y-m-d", strtotime($date_arrivee)+24*3600) ?>"required/>
+        <input type="hidden" name="etape" value="2">
+    <input type="submit" name="submit-date" value="Valider">
+    </form>
+    <?php
+}
+
+//PAGE 2 : CHOIX DES EQUIPEMENTS/OPTIONS
+elseif($_GET["etape"]==2)
+{
+    //    if(strtotime($_GET["date_fin"])<=strtotime($_GET["date_debut"])){echo "oui";}
+
+    $_SESSION["reservation"]->setDateDepart($_GET['date_fin']);
+    $date_arrivee_str=$_SESSION["reservation"]->getDateArrivee("str");
+    $date_depart_str=$_SESSION["reservation"]->getDateDepart("str");
     ?>
-    <p>Date d'arrivée : <?php echo $date_arrivee;?></p>
-    <p>Date de départ : <?php echo $date_depart; ?></p>
+    <p class="date">Date d'arrivée : <?php echo $date_arrivee_str;?></p>
+    <p class="date">Date de départ : <?php echo $date_depart_str; ?></p>
     <?php
 
 
@@ -105,9 +96,9 @@ elseif($_GET["etape"]==1)
         ?>
     
         <form class="formulaire" action="reservation-form.php?etape=3" method="get">
-        <label>Votre équipement</label>
+        <label><h1 class="modifier">Votre équipement</h1></label>
         <select name="Equipement" required/>
-                    <option value="">Equipement</option>
+                    <option value="" class="largeur">Equipement</option>
                     <?php 
                     foreach($equipements as $equipement)
                     {
@@ -118,30 +109,33 @@ elseif($_GET["etape"]==1)
                     ?>
         </select>
         <br/>
-        <label>Vos options</label>
+        <label><h1 class="modifier">Vos options</h1></label>
         <?php 
                     foreach($options as $option)
                     {
                         ?>
-                        <input type="checkbox" value="1" name="<?php echo $option[1]; ?>"><?php echo $option[2]; echo ' ('.$option[5].' €/jour)'; ?><br/>
+                        <input type="checkbox" value="1" class="checkbox" name="<?php echo $option[1]; ?>"><p class="date"><?php echo $option[2]; echo ' ('.$option[5].' €/jour)'; ?></p><br/>
                         <?php
                     }
                     ?>
         <br/>
-        <input type="hidden" name="etape" value="2">
+        <input type="hidden" name="etape" value="3">
         <input type="submit" name="submit" value="Valider">
         </form>
 
 <?php
 }
 //PAGE 1 : CHOIX DE L'EMPLACEMENT
-elseif($_GET["etape"]==2)
+elseif($_GET["etape"]==3)
 {
+    $test_date=true;
     $date_arrivee=$_SESSION["reservation"]->getDateArrivee();
     $date_depart=$_SESSION["reservation"]->getDateDepart();
+    $nb_emplacements=$_SESSION["reservation"]->setNbEmplacements();
+
     $_SESSION["reservation"]->setEquipement($_GET["Equipement"]);
     $equipement_str=$_SESSION["reservation"]->getEquipement("str");
-    $nb_emplacements=$_SESSION["reservation"]->setNbEmplacements();
+
 
     if(!isset($_GET["Borne"])) $borne=0; else $borne=1;
     if(!isset($_GET["Club"])) $club=0; else $club=1;
@@ -151,15 +145,15 @@ elseif($_GET["etape"]==2)
 
 
     ?>
-    <p>Date d'arrivée : <?php echo $_SESSION["reservation"]->getDateArrivee("str");?></p>
-    <p>Date de départ : <?php echo $_SESSION["reservation"]->getDateDepart("str"); ?></p>
-    <p>Equipement : <?php echo $equipement_str; ?></p>
-    <p>Vos options : 
+    <p class="date">Date d'arrivée : <?php echo $_SESSION["reservation"]->getDateArrivee("str");?></p>
+    <p class="date">Date de départ : <?php echo $_SESSION["reservation"]->getDateDepart("str"); ?></p>
+    <p class="date">Equipement : <?php echo $equipement_str; ?></p>
+    <h1 class="modifier">Vos options : 
     <?php 
      echo $_SESSION["reservation"]->getBorne("str");
      echo $_SESSION["reservation"]->getClub("str") ;
      echo $_SESSION["reservation"]->getActivites("str");
-     ?></p>
+     ?></h1>
 
 
     <?php
@@ -189,7 +183,6 @@ elseif($_GET["etape"]==2)
         ?>
     
         <form class="formulaire" action="reservation-form.php?etape=3" method="get">
-        <label>Votre emplacement</label>
         <select name="Emplacement" required/>
                     <option value="">Emplacement</option>
                     <?php
@@ -202,14 +195,15 @@ elseif($_GET["etape"]==2)
                     }
                     ?>
         </select>
-        <input type="hidden" name="etape" value="3">
+        <input type="hidden" name="etape" value="4">
         <input type="submit" name="submit" value="Valider">
         </form>
 <?php
 }
 //PAGE 4 : RECAPITULATIF + ENVOI RESERVATION
-elseif($_GET["etape"]==3)
+elseif($_GET["etape"]==4)
 {
+    $test_date=true;
     $_SESSION["reservation"]->setEmplacement($_GET['Emplacement']);
 
     $date_arrivee=$_SESSION["reservation"]->getDateArrivee();
@@ -238,12 +232,12 @@ elseif($_GET["etape"]==3)
 
     //Affichage du récapitulatif de la réservation
     ?>
-    <p>Date d'arrivée : <?php echo $date_arrivee_str ;?></p>
-    <p>Date de départ : <?php echo $date_depart_str; ?></p>
-    <p>Equipement : <?php echo $equipement_str; ?></p>
-    <p>Vos options : <?php echo $borne_str. $club_str.$activites_str; ?></p>
-    <p>Emplacement : <?php echo $emplacement_str ?></p>
-    <p>Prix : <?php echo $prix." €" ; ?></p>
+    <p class="date">Date d'arrivée : <?php echo $date_arrivee_str ;?></p>
+    <p class="date">Date de départ : <?php echo $date_depart_str; ?></p>
+    <p class="date">Equipement : <?php echo $equipement_str; ?></p>
+    <h1 class="modifier">Vos options :</h1><p class="date"><?php echo $borne_str;?></p><p class="date"><?php echo $club_str;?></p><p class="date"><?php echo $activites_str; ?></p>
+    <p class="date">Emplacement : <?php echo $emplacement_str ?></p>
+    <p class="date">Prix : <?php echo $prix." €" ; ?></p>
 
     <form class="formulaire" method="POST">
     <input type="submit" name="submit" value="Valider la réservation">
@@ -259,8 +253,8 @@ elseif($_GET["etape"]==3)
             $_SESSION["reservation"]->connect();
             $_SESSION["reservation"]->execute("INSERT INTO reservations (debut,fin,nb_jours,id_utilisateur,id_emplacement,id_equipement,id_borne,id_club,id_activites,prix) VALUES (\"$date_arrivee\",\"$date_depart\",\"$nb_jours\",\"$id_utilisateur\",\"$emplacement\",\"$equipement\",\"$borne\",\"$club\",\"$activites\",\"$prix\")");
             $_SESSION["reservation"]->close();
-            //Retour vers la page profil
-            header("location:profil.php");
+            //Retour vers la page profil->mes réservations
+            header("location:mes-reservations.php");
 
         }
         if($_POST["submit"]=="Modifier la réservation")
@@ -270,6 +264,7 @@ elseif($_GET["etape"]==3)
         }
     }
 }
+
 
 ?>
 </section>

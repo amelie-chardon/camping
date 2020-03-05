@@ -4,10 +4,10 @@
 date_default_timezone_set('UTC');
 
 
-if($_SESSION['user']->isConnected() != false)
-{
-
-
+if (isset($_SESSION['login']))
+ {
+    $login = $_SESSION['login'];
+    $today = date("d.m.y")
 ?>
 
 <nav>
