@@ -131,10 +131,10 @@ elseif($_GET["etape"]==3)
     $test_date=true;
     $date_arrivee=$_SESSION["reservation"]->getDateArrivee();
     $date_depart=$_SESSION["reservation"]->getDateDepart();
-    $nb_emplacements=$_SESSION["reservation"]->setNbEmplacements();
 
     $_SESSION["reservation"]->setEquipement($_GET["Equipement"]);
     $equipement_str=$_SESSION["reservation"]->getEquipement("str");
+    $nb_emplacements=$_SESSION["reservation"]->setNbEmplacements();
 
 
     if(!isset($_GET["Borne"])) $borne=0; else $borne=1;
@@ -148,12 +148,10 @@ elseif($_GET["etape"]==3)
     <p class="date">Date d'arrivée : <?php echo $_SESSION["reservation"]->getDateArrivee("str");?></p>
     <p class="date">Date de départ : <?php echo $_SESSION["reservation"]->getDateDepart("str"); ?></p>
     <p class="date">Equipement : <?php echo $equipement_str; ?></p>
-    <h1 class="modifier">Vos options : 
-    <?php 
-     echo $_SESSION["reservation"]->getBorne("str");
-     echo $_SESSION["reservation"]->getClub("str") ;
-     echo $_SESSION["reservation"]->getActivites("str");
-     ?></h1>
+    <h1 class="modifier">Vos options : </h1>
+    <p class="date"><?php echo $_SESSION["reservation"]->getBorne("str");?></p>
+    <p class="date"> <?php echo $_SESSION["reservation"]->getClub("str") ;?></p>
+    <p class="date"><?php echo $_SESSION["reservation"]->getActivites("str");?></p>
 
 
     <?php
